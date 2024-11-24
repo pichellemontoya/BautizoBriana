@@ -1,0 +1,209 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300..700;1,300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&family=STIX+Two+Text:ital,wght@0,400..700;1,400..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&family=Noto+Serif:ital,wght@0,100..900;1,100..900&family=STIX+Two+Text:ital,wght@0,400..700;1,400..700&display=swap');
+@import url('./assets/thewinter.ttf');
+@font-face {
+    font-family: 'Janges';
+    src: url('./assets/Janges-Regular.ttf') format('ttf'),
+         url('./assets/Janges-Regular.eot') format('eot'),
+         url('./assets/Janges-Regular.woff') format('woff'),
+         url('./assets/Janges-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+  }
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Noto Serif', sans-serif;
+  background-color: #fdf3f0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+img {
+    width: 100px;
+    height: 100px;
+}
+
+.invitation {
+  width: 70%;
+  background: url('./assets/fondo.png') center/cover no-repeat;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  padding: 40px;
+  color: #75694e;
+}
+.invitation .title {
+    margin: 40px 0;
+}
+.invitation .title p {
+    font-weight: 500;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    margin: 0;
+}
+
+.invitation .title p::first-letter {
+    font-size: 1.3rem; 
+}
+
+.subtitle {
+  font-size: 1rem;
+  color: #75694e;
+  margin: 10px 0;
+}
+
+.bautizo {
+  font-family: 'Janges', serif;
+  font-size: 2.5rem;
+  font-weight: 300;
+  margin: 0;
+  color: #C9961A;
+}
+
+.nombre {
+  font-family: 'The Winter', serif;
+  font-size: 8rem;
+  font-weight: 400;
+  color: #C9961A;
+  margin: 60px 0 30px 0 ;
+}
+
+.nombre div {
+    line-height: 1;
+}
+
+.info {
+  display: flex;
+  justify-content: space-around;
+  margin: 20px 0;
+}
+
+.info div {
+  margin: 0 10px;
+}
+
+.info h3 {
+  font-size: 1.8rem;
+  font-family: 'Cormorant', sans-serif;
+  font-style: italic;
+  color: #75694e;
+  margin-bottom: 10px;
+}
+.info div p {
+    font-size: 1.5rem;
+    font-weight: 400;
+}
+
+.divider {
+  text-align: center;
+  width: 4px;
+  background: #75694e;
+  margin: 0 auto;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-around;
+  margin: 20px 0;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.date {
+  font-size: 2.5rem;
+  color: #75694e;
+}
+
+.rsvp {
+  font-size: 0.9rem;
+  color: #75694e;
+  margin-top: 20px;
+}
+
+
+@media (max-width: 600px) {
+  .info {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .info div {
+    margin: 10px 0;
+  }
+
+  .divider {
+    display: none;
+  }
+
+  iframe {
+    width: 100%;
+    height: auto;
+  }
+}
+
+@media (max-width: 1024px) {
+  .invitation {
+    width: 95%;
+    padding: 15px;
+  }
+
+  .nombre {
+    font-size: 7rem;
+  }
+
+  .bautizo {
+    font-size: 1.5rem;
+  }
+
+  .subtitle {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .nombre {
+    font-size: 6rem;
+  }
+
+  .bautizo {
+    font-size: 1.2rem;
+  }
+
+  .footer {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .footer p {
+    margin: 5px 0;
+  }
+
+  .rsvp {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .nombre {
+    font-size: 5rem;
+  }
+
+  .bautizo {
+    font-size: 1rem;
+  }
+
+  .subtitle {
+    font-size: 0.8rem;
+  }
+
+  .info h3 {
+    font-size: 1.5rem;
+  }
+
+  .info div p {
+    font-size: 1.2rem;
+  }
+}
