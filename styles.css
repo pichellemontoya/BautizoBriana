@@ -2,14 +2,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap');
 @import url('./assets/thewinter.ttf');
 @font-face {
-    font-family: 'Janges';
-    src: url('./assets/Janges-Regular.ttf') format('ttf'),
-         url('./assets/Janges-Regular.eot') format('eot'),
-         url('./assets/Janges-Regular.woff') format('woff'),
-         url('./assets/Janges-Regular.woff2') format('woff2');
-    font-weight: normal;
-    font-style: normal;
-  }
+  font-family: 'Janges';
+  src: url('./assets/Janges-Regular.ttf') format('ttf'),
+        url('./assets/Janges-Regular.eot') format('eot'),
+        url('./assets/Janges-Regular.woff') format('woff'),
+        url('./assets/Janges-Regular.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'The Winter';
+  src: url('./assets/thewinter.ttf') format('ttf'),
+       url('./assets/thewinter.otf') format('otf');
+  font-weight: normal;
+  font-style: normal;
+}
 body {
   margin: 0;
   padding: 0;
@@ -23,6 +30,7 @@ body {
 img {
     width: 100px;
     height: 100px;
+    margin-top: 40px;
 }
 
 .invitation {
@@ -34,17 +42,17 @@ img {
   padding: 40px;
   color: #75694e;
 }
-.invitation .title {
+.invitation .titulo {
     margin: 40px 0;
 }
-.invitation .title p {
+.invitation .titulo p {
     font-weight: 600;
     font-size: 1.2rem;
     text-transform: uppercase;
     margin: 0;
 }
 
-.invitation .title p::first-letter {
+.invitation .titulo p::first-letter {
     font-size: 1.35rem; 
 }
 
@@ -207,7 +215,24 @@ img {
 
 @media (max-width: 480px) {
   .nombre {
-    font-size: 4rem;
+    font-size: 3.5rem;
+  }
+
+  .invitation .titulo p {
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    margin: 0;
+  }
+
+  .invitation .titulo p::first-letter {
+      font-size: 1.0rem; 
+  }
+
+  .fecha p {
+    margin: 40px 0px 30px 0px;
+    font-size: 0.9rem;
+    font-weight: 600;
   }
 
   .bautizo {
