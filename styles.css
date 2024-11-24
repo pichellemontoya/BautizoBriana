@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300..700;1,300..700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&family=STIX+Two+Text:ital,wght@0,400..700;1,400..700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&family=Noto+Serif:ital,wght@0,100..900;1,100..900&family=STIX+Two+Text:ital,wght@0,400..700;1,400..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap');
 @import url('./assets/thewinter.ttf');
 @font-face {
     font-family: 'Janges';
@@ -14,8 +13,8 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: 'Noto Serif', sans-serif;
-  background-color: #fdf3f0;
+  font-family: 'Crimson Text', sans-serif;
+  background-color: #fff; 
   display: flex;
   justify-content: center;
   align-items: center;
@@ -27,7 +26,7 @@ img {
 }
 
 .invitation {
-  width: 70%;
+  margin: 80px 40px;
   background: url('./assets/fondo.png') center/cover no-repeat;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -39,14 +38,14 @@ img {
     margin: 40px 0;
 }
 .invitation .title p {
-    font-weight: 500;
+    font-weight: 600;
     font-size: 1.2rem;
     text-transform: uppercase;
     margin: 0;
 }
 
 .invitation .title p::first-letter {
-    font-size: 1.3rem; 
+    font-size: 1.35rem; 
 }
 
 .subtitle {
@@ -65,7 +64,7 @@ img {
 
 .nombre {
   font-family: 'The Winter', serif;
-  font-size: 8rem;
+  font-size: 9rem;
   font-weight: 400;
   color: #C9961A;
   margin: 60px 0 30px 0 ;
@@ -81,6 +80,12 @@ img {
   margin: 20px 0;
 }
 
+.fecha p {
+  margin: 40px 0px 30px 0px;
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
 .info div {
   margin: 0 10px;
 }
@@ -94,7 +99,7 @@ img {
 }
 .info div p {
     font-size: 1.5rem;
-    font-weight: 400;
+    font-weight: 500;
 }
 
 .divider {
@@ -117,6 +122,20 @@ img {
   color: #75694e;
 }
 
+.regalo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0;
+}
+
+.regalo p {
+  padding-right: 10px;
+  font-weight: 700;
+  font-size: 1.3rem;
+  font-family: 'Cormorant', sans-serif;
+  font-style: italic;
+}
 .rsvp {
   font-size: 0.9rem;
   color: #75694e;
@@ -165,7 +184,7 @@ img {
 
 @media (max-width: 768px) {
   .nombre {
-    font-size: 6rem;
+    font-size: 5rem;
   }
 
   .bautizo {
@@ -188,7 +207,7 @@ img {
 
 @media (max-width: 480px) {
   .nombre {
-    font-size: 5rem;
+    font-size: 4rem;
   }
 
   .bautizo {
@@ -205,5 +224,31 @@ img {
 
   .info div p {
     font-size: 1.2rem;
+  }
+}
+
+.info {
+  display: flex;
+  justify-content: space-around;
+  gap: 20px;
+  margin: 20px 0;
+}
+
+.info > div {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.info h3, .info p, .info iframe {
+  margin-bottom: 10px;
+}
+
+@media (max-width: 1024px) {
+  .info {
+    flex-direction: column;
+    gap: 30px;
   }
 }
