@@ -49,20 +49,6 @@ img {
     font-size: 1.35rem; 
 }
 
-.subtitle {
-  font-size: 1rem;
-  color: #75694e;
-  margin: 10px 0;
-}
-
-.bautizo {
-  font-family: 'Janges', serif;
-  font-size: 2.5rem;
-  font-weight: 300;
-  margin: 0;
-  color: #C9961A;
-}
-
 .nombre {
   font-family: 'The winter', serif;
   font-size: 9rem;
@@ -103,13 +89,6 @@ img {
     font-weight: 500;
 }
 
-.divider {
-  text-align: center;
-  width: 4px;
-  background: #75694e;
-  margin: 0 auto;
-}
-
 .footer {
   display: flex;
   justify-content: space-around;
@@ -118,29 +97,43 @@ img {
   font-weight: bold;
 }
 
-.date {
-  font-size: 2.5rem;
-  color: #75694e;
-}
-
-.regalo {
+.regalo div {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 20px 0;
 }
 
-.regalo p {
+.regalo {
+  margin: 30px 0;
+}
+
+.regalo h3 {
   padding-right: 10px;
-  font-weight: 700;
-  font-size: 1.3rem;
+  font-size: 1.7rem;
   font-family: 'Cormorant', sans-serif;
   font-style: italic;
 }
+
+.regalo p {
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+
 .rsvp {
-  font-size: 0.9rem;
+  margin: 30px 0;
+}
+
+.rsvp  h3 {
+  font-size: 1.8rem;
+  font-family: 'Cormorant', sans-serif;
+  font-style: italic;
   color: #75694e;
-  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.rsvp div p {
+  font-size: 1.5rem;
+  font-weight: 500;
 }
 
 
@@ -201,9 +194,6 @@ img {
     margin: 5px 0;
   }
 
-  .rsvp {
-    font-size: 0.8rem;
-  }
 }
 
 @media (max-width: 480px) {
@@ -242,6 +232,22 @@ img {
 
   .info div p {
     font-size: 1.2rem;
+  }
+
+  .regalo h3 {
+    font-size: 1.5rem;
+  }
+  
+  .regalo p {
+      font-size: 1.2rem;
+  }
+
+  .rsvp h3 {
+    font-size: 1.5rem;
+  }
+  
+  .rsvp div p {
+      font-size: 1.2rem;
   }
 }
 
