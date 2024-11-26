@@ -10,11 +10,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const adultosConfirmadosInput = document.getElementById('adultosConfirmados');
   const niniosConfirmadosInput = document.getElementById('niniosConfirmados');
   const noAsistiraCheckbox = document.getElementById('noAsistira');
-  
+
   // Cargar familias al select
   async function loadFamilias() {
     try {
-      const response = await fetch(`${API_URL}?select=*`, {
+      const response = await fetch(`${API_URL}?bResponde=eq.FALSE&order=Familia.asc&select=*`, {
         headers: {
           'apikey': API_KEY,
           'Authorization': `Bearer ${CLIENT_KEY}`
@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
       console.error('Error:', error);
     }
   }
-  
+
   // Mostrar detalles al seleccionar familia
   familiaSelect.addEventListener('change', () => {
     const selectedOption = familiaSelect.options[familiaSelect.selectedIndex];
@@ -49,22 +49,41 @@ document.addEventListener('DOMContentLoaded', () => {
       formDetails.style.display = 'none';
     }
   });
-  
+
+  // Deshabilitar campos cuando se marca "No podré asistir"
+  noAsistiraCheckbox.addEventListener('change', () => {
+    const isChecked = noAsistiraCheckbox.checked;
+    adultosConfirmadosInput.required = !isChecked;
+    niniosConfirmadosInput.required = !isChecked;
+
+    if (isChecked) {
+      adultosConfirmadosInput.value = '';
+      niniosConfirmadosInput.value = '';
+      adultosConfirmadosInput.disabled = true;
+      niniosConfirmadosInput.disabled = true;
+    } else {
+      adultosConfirmadosInput.disabled = false;
+      niniosConfirmadosInput.disabled = false;
+    }
+  });
+
   // Manejar envío del formulario
   document.getElementById('attendance-form').addEventListener('submit', async (e) => {
     e.preventDefault();
-    const familiaID = familiaSelect.value;
+    
+    const familiaID = familiaSelect.value; // ID de la familia seleccionada
     const adultosConfirmados = noAsistiraCheckbox.checked ? 0 : Number(adultosConfirmadosInput.value);
     const niniosConfirmados = noAsistiraCheckbox.checked ? 0 : Number(niniosConfirmadosInput.value);
     const bAsiste = !noAsistiraCheckbox.checked;
-    
+  
     try {
-      const response = await fetch(`${API_URL}?id=eq.${familiaID}`, {
+      const response = await fetch(`${API_URL}?InvitadoID=eq.${familiaID}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
           'apikey': API_KEY,
-          'Authorization': `Bearer ${CLIENT_KEY}`
+          'Authorization': `Bearer ${CLIENT_KEY}`,
+          'Prefer': 'return=minimal' // Reduce el peso de la respuesta
         },
         body: JSON.stringify({
           bAsiste,
@@ -73,14 +92,17 @@ document.addEventListener('DOMContentLoaded', () => {
           bResponde: true
         })
       });
-      if (!response.ok) throw new Error('Error al guardar la confirmación');
-      
+  
+      if (!response.ok) {
+        const errorMessage = await response.text(); // Captura el mensaje de error si lo hay
+        throw new Error(`Error en la respuesta: ${errorMessage}`);
+      }
+  
       alert('Confirmación guardada con éxito');
     } catch (error) {
       console.error('Error:', error);
-      alert('Hubo un error al guardar la confirmación');
     }
   });
-  
+
   loadFamilias();
 });
