@@ -135,6 +135,42 @@ img {
   font-size: 1.5rem;
   font-weight: 500;
 }
+.rsvp-form {
+  margin-top: 30px;
+  text-align: center;
+}
+
+.rsvp-form form {
+  display: inline-block;
+  text-align: left;
+  font-size: 1rem;
+  margin-top: 20px;
+}
+
+.rsvp-form label {
+  display: block;
+  margin: 10px 0 5px;
+}
+
+.rsvp-form input,
+.rsvp-form select,
+.rsvp-form button {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.rsvp-form button {
+  background-color: #C9961A;
+  color: #fff;
+  cursor: pointer;
+}
+
+.rsvp-form button:hover {
+  background-color: #a17f15;
+}
 
 
 @media (max-width: 600px) {
