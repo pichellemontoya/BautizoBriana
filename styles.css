@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300..700;1,300..700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap');
-@import url('https://fonts.cdnfonts.com/css/the-winter');
+@import url('https://fonts.cdnfonts.com/css/white-star-personal-use');
 @font-face {
   font-family: 'Janges';
   src: url('./assets/Janges-Regular.ttf') format('ttf'),
@@ -50,15 +50,11 @@ img {
 }
 
 .nombre {
-  font-family: 'The winter', serif;
+  font-family: 'White Star Personal Use', serif;
   font-size: 9rem;
   font-weight: 400;
   color: #C9961A;
   margin: 60px 0 30px 0 ;
-}
-
-.nombre div {
-    line-height: 1;
 }
 
 .info {
