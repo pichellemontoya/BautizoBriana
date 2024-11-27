@@ -120,7 +120,7 @@ img {
 }
 
 .rsvp {
-  margin: 30px 0;
+  margin: 30px 30px;
 }
 
 .rsvp  h3 {
@@ -135,42 +135,152 @@ img {
   font-size: 1.5rem;
   font-weight: 500;
 }
-.rsvp-form {
+.attendance-form {
   margin-top: 30px;
   text-align: center;
 }
 
-.rsvp-form form {
+.attendance-form form {
   display: inline-block;
   text-align: left;
   font-size: 1rem;
   margin-top: 20px;
 }
 
-.rsvp-form label {
-  display: block;
-  margin: 10px 0 5px;
+.attendance-form label {
+  margin: 20px 0;
+  font-size: 1.5rem;
 }
 
-.rsvp-form input,
-.rsvp-form select,
-.rsvp-form button {
-  width: 100%;
-  padding: 10px;
+.confirmados input,
+button {
+  width: 50%;
+  font-size: 1.2rem;
+  font-weight: 500;
+  text-align: center;
+  padding: 0.675em 0.2em;
   margin-bottom: 15px;
   border: 1px solid #ccc;
-  border-radius: 5px;
+  background-color: #fff;
+  border: 1px solid #caced1;
+  border-radius: 0.25rem;
+  color: #000;
+  cursor: pointer;
 }
 
-.rsvp-form button {
+button {
   background-color: #C9961A;
+  font-weight: 700;
+  font-family: 'Cormorant', sans-serif;
   color: #fff;
   cursor: pointer;
 }
 
-.rsvp-form button:hover {
+button:hover {
   background-color: #a17f15;
 }
+
+
+.input::before {
+  border-left: var(--size) solid transparent;
+  border-right: var(--size) solid transparent;
+  border-bottom: var(--size) solid black;
+  top: 40%;
+}
+
+.input::after {
+  border-left: var(--size) solid transparent;
+  border-right: var(--size) solid transparent;
+  border-top: var(--size) solid black;
+  top: 55%;
+}
+
+.asiste {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  margin: 30px 0px;
+  gap: 0.5rem;
+  position: relative;
+  cursor: pointer;
+  font-size: 1.15rem;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.checkbox p:before {
+  padding-left: 35px;
+}
+
+.asiste input[type="checkbox"] {
+  appearance: none;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 2px solid #caced1;
+  border-radius: 0.25rem;
+  background-color: #fff;
+  cursor: pointer;
+  position: relative;
+}
+
+.asiste input[type="checkbox"]:checked {
+  background-color: #C9961A;
+  border-color: #a17f15;
+}
+
+.asiste input[type="checkbox"]:checked::after {
+  content: "✔";
+  color: white;
+  font-size: 1rem;
+  position: absolute;
+  left: 0.3rem;
+  top: 0.1rem;
+}
+
+.seleccion {
+  min-width: 70%;
+  position: relative;
+}
+
+.seleccion select {
+  appearance: none;
+  width: 100%;
+  font-size: 1.15rem;
+  padding: 0.675em 6em 0.675em 1em;
+  background-color: #fff;
+  border: 1px solid #caced1;
+  border-radius: 0.25rem;
+  color: #000;
+  cursor: pointer;
+  margin: 30px 0;
+}
+
+.seleccion::before,
+.seleccion::after {
+  --size: 0.3rem;
+  content: "";
+  position: absolute;
+  right: 1rem;
+  pointer-events: none;
+}
+
+.seleccion::before {
+  border-left: var(--size) solid transparent;
+  border-right: var(--size) solid transparent;
+  border-bottom: var(--size) solid black;
+  top: 40%;
+}
+
+.seleccion::after {
+  border-left: var(--size) solid transparent;
+  border-right: var(--size) solid transparent;
+  border-top: var(--size) solid black;
+  top: 55%;
+}
+
 
 
 @media (max-width: 600px) {
@@ -190,6 +300,19 @@ img {
   iframe {
     width: 100%;
     height: auto;
+  }
+
+  .rsvp form,
+  #thank-you-message {
+    text-align: center;
+    margin: 0 auto;
+    width: 90%;
+  }
+
+  .confirmados input,
+  button {
+    width: 80%;
+    font-size: 1rem;
   }
 }
 
@@ -282,11 +405,29 @@ img {
     font-size: 1.5rem;
   }
   
-  .rsvp div p {
+  .rsvp p {
       font-size: 1.2rem;
   }
-}
 
+  .confirmados input,
+  button {
+    width: 80%;
+    font-size: 1.2rem;
+  }
+
+  .seleccion option,
+  .detalles p,
+  .totales div div p,
+  .confirmados div div p,
+  .asiste label p,
+  .asistencia div p {
+    font-size: 1.2rem;
+  }
+
+  .seleccion select {
+    font-size: 1rem;
+  }
+}
 .info {
   display: flex;
   justify-content: space-around;

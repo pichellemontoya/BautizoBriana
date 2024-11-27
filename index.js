@@ -45,6 +45,8 @@ document.addEventListener('DOMContentLoaded', () => {
       niniosSpan.textContent = selectedOption.dataset.ninios;
       adultosConfirmadosInput.max = selectedOption.dataset.adultos;
       niniosConfirmadosInput.max = selectedOption.dataset.ninios;
+      adultosConfirmadosInput.disabled = false;
+      niniosConfirmadosInput.disabled = Number(niniosSpan.textContent) == 0;
     } else {
       formDetails.style.display = 'none';
     }
@@ -53,18 +55,38 @@ document.addEventListener('DOMContentLoaded', () => {
   // Deshabilitar campos cuando se marca "No podré asistir"
   noAsistiraCheckbox.addEventListener('change', () => {
     const isChecked = noAsistiraCheckbox.checked;
+  
     adultosConfirmadosInput.required = !isChecked;
     niniosConfirmadosInput.required = !isChecked;
-
+  
+    adultosConfirmadosInput.disabled = isChecked;
+    niniosConfirmadosInput.disabled = isChecked || Number(niniosSpan.textContent) == 0;
+  
     if (isChecked) {
       adultosConfirmadosInput.value = '';
       niniosConfirmadosInput.value = '';
-      adultosConfirmadosInput.disabled = true;
-      niniosConfirmadosInput.disabled = true;
-    } else {
-      adultosConfirmadosInput.disabled = false;
-      niniosConfirmadosInput.disabled = false;
     }
+  });
+
+  // Validar límites al salir del input
+  function validateMaxInput(input, max) {
+    if (Number(input.value) > max) {
+      input.value = max; 
+    }
+  }
+
+  adultosConfirmadosInput.addEventListener('blur', () => {
+    validateMaxInput(
+      adultosConfirmadosInput,
+      Number(adultosSpan.textContent)
+    );
+  });
+
+  niniosConfirmadosInput.addEventListener('blur', () => {
+    validateMaxInput(
+      niniosConfirmadosInput,
+      Number(niniosSpan.textContent)
+    );
   });
 
   // Manejar envío del formulario
@@ -93,15 +115,19 @@ document.addEventListener('DOMContentLoaded', () => {
         })
       });
   
-      if (!response.ok) {
-        const errorMessage = await response.text(); // Captura el mensaje de error si lo hay
-        throw new Error(`Error en la respuesta: ${errorMessage}`);
-      }
-  
-      alert('Confirmación guardada con éxito');
+      document.getElementById('seleccion').style.display = 'none';
+      document.getElementById('details').style.display = 'none';
+      document.getElementById('thank-you-message').style.display = 'block';
     } catch (error) {
       console.error('Error:', error);
     }
+  });
+
+  document.getElementById('new-confirmation').addEventListener('click', () => {
+    document.getElementById('thank-you-message').style.display = 'none';
+    document.getElementById('attendance-form').reset();
+    document.getElementById('details').style.display = 'none';
+    document.getElementById('seleccion').style.display = 'block';
   });
 
   loadFamilias();
