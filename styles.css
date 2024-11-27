@@ -409,7 +409,7 @@ button:hover {
       font-size: 1.2rem;
   }
 
-  .confirmados input,
+  .confirmados div div input,
   button {
     width: 80%;
     font-size: 1.2rem;
@@ -426,6 +426,19 @@ button:hover {
 
   .seleccion select {
     font-size: 1rem;
+  }
+
+  .asiste input[type="checkbox"]:checked::after {
+    content: "✔";
+    color: white;
+    font-size: 0.8rem;
+    position: absolute;
+    left: 0.15rem;
+    top: 0.05rem;
+  }
+
+  .rsvp {
+    margin: 5px 30px;
   }
 }
 .info {
