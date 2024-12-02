@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CRUD Invitados</title>
+  <link rel="stylesheet" href="crud-styles.css">
+</head>
+<body>
+  <div class="crud-container">
+    <h1>Gestión de Invitados</h1>
+    <div class="total-general">
+      <div><strong>Contestaron:</strong><p id="total-general-respondieron">0</p></div>
+      <div><strong>Asistirán:</strong><p id="total-general-confirmados">0</p></div>
+      <div><strong>Adultos confirmados:</strong><p id="total-general-adultos-confirmados">0</p></div>
+      <div><strong>Niños/Bebés confirmados:</strong><p id="total-general-ninios-confirmados">0</p></div>
+    </div>
+    <div class="filters">
+      <button data-filter="all">Todos</button>
+      <button data-filter="responded">Respondieron</button>
+      <button data-filter="not-responded">No respondieron</button>
+      <button data-filter="attending">Asistirán</button>
+      <button data-filter="not-attending">No asistirán</button>
+    </div>
+    <form id="invitado-form">
+      <input type="hidden" id="id" name="id">
+      <div>
+        <label for="familia">Familia:</label>
+        <input type="text" id="familia" name="familia" required>
+      </div>
+      <div>
+        <label for="adultos">Adultos:</label>
+        <input type="number" id="adultos" name="adultos" min="0" required>
+      </div>
+      <div>
+        <label for="ninios">Niños/Bebés:</label>
+        <input type="number" id="ninios" name="ninios" min="0" required>
+      </div>
+      <button type="submit">Guardar</button>
+    </form>
+    <table>
+      <thead>
+        <tr>
+          <th style="visibility:collapse; display:none;">ID</th>
+          <th>Familia</th>
+          <th>Adultos Invitados</th>
+          <th>Adultos Confirmados</th>
+          <th>Niños/Bebes Invitados</th>
+          <th>Niños/Bebés Confirmados</th>
+          <th>Respondió</th>
+          <th>Asistirá</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody id="invitados-tbody">
+        <!-- Los datos se llenan dinámicamente -->
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="1"><strong>Total:</strong></td>
+          <td id="total-adultos">0</td>
+          <td id="total-adultos-confirmados">0</td>
+          <td id="total-ninios">0</td>
+          <td id="total-ninios-confirmados">0</td>
+          <td id="total-respondieron">0</td>
+          <td id="total-confirmados">0</td>
+          <td colspan="1"></td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>  
+  <script src="crud.js"></script>
+</body>
+</html>
