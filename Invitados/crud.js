@@ -27,8 +27,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const adultosConfirmados = parseInt(fila.children[3].textContent, 10) || 0;
       const ninios = parseInt(fila.children[4].textContent, 10) || 0;
       const niniosConfirmados = parseInt(fila.children[5].textContent, 10) || 0;
-      const confirmados = fila.children[6].textContent == 'Sí' ? 1 : 0;
-      const respondieron = fila.children[7].textContent == 'Sí' ? 1 : 0;
+      const confirmados = fila.children[7].textContent == 'Sí' ? 1 : 0;
+      const respondieron = fila.children[6].textContent == 'Sí' ? 1 : 0;
   
       totalAdultos += adultos;
       totalAdultosConfirmados += adultosConfirmados;
@@ -74,7 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
   
 
   const fetchInvitados = async (filter = 'all') => {
-    let query = `${API_URL}?select=*`;
+    let query = `${API_URL}?select=*&order=Familia.asc`;
 
     // Aplicar filtro según el caso
     if (filter === 'responded') query += '&bResponde=eq.true';
@@ -136,8 +136,8 @@ document.addEventListener('DOMContentLoaded', () => {
       Familia: form.familia.value,
       Adultos: Number(form.adultos.value),
       Ninios: Number(form.ninios.value),
-      AdultosConfirmados: 0,
-      NiniosConfirmados: 0,
+      AdultosConfirmados: Number(form.adultosConfirmados.value),
+      NiniosConfirmados: Number(form.niniosConfirmados.value),
       bAsiste: false,
       bResponde: false,
     };
@@ -154,7 +154,9 @@ document.addEventListener('DOMContentLoaded', () => {
       form.id.value = row.children[0].textContent;
       form.familia.value = row.children[1].textContent;
       form.adultos.value = row.children[2].textContent;
+      form.adultosConfirmados.value = row.children[3].textContent;
       form.ninios.value = row.children[4].textContent;
+      form.niniosConfirmados.value = row.children[5].textContent;
     } else if (e.target.classList.contains('delete')) {
       const id = e.target.dataset.id;
       if (confirm('¿Seguro que deseas eliminar este invitado?')) {
@@ -173,6 +175,17 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  document.getElementById('exportar-excel').addEventListener('click', function() {
+    const table = document.querySelector('table');
+    const wb = XLSX.utils.table_to_book(table, { sheet: "Invitados" });
+    XLSX.writeFile(wb, 'invitados.xlsx');
+  });
+  
+  document.getElementById('limpiar-formulario').addEventListener('click', () => {
+    const form = document.getElementById('invitado-form');
+    form.reset(); // Limpia todos los campos del formulario
+  });
+  
   // Cargar todos los invitados al inicio
   fetchInvitados();
 });

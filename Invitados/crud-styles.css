@@ -121,4 +121,40 @@ body {
     justify-content: center;
     align-items: center;
   }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    overflow-x: auto;
+    display: block;
+  }
+  
+  th, td {
+    text-align: center;
+    padding: 10px;
+    font-size: 14px;
+  }
+  form button#limpiar-formulario {
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 10px;
+    margin-left: 10px; /* Espaciado entre botones */
+  }
+  
+  form button#limpiar-formulario:hover {
+    background-color: #5a6268;
+  }
+  
+  @media (max-width: 600px) {
+    table {
+      font-size: 12px;
+    }
+    .filters {
+      display: block;
+      width: 100%;
+    }
+  }
     
