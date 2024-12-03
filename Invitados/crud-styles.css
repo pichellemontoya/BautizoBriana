@@ -1,160 +1,221 @@
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f9f9f9;
-    margin: 0;
-    padding: 20px;
-  }
-  
-  .crud-container {
-    max-width: 800px;
-    margin: auto;
-    background: white;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  }
-  
-  h1 {
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  form {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-    margin-bottom: 20px;
-  }
-  
-  form div {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  form button {
-    grid-column: span 2;
-    padding: 10px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  form button:hover {
-    background-color: #0056b3;
-  }
-  
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-  }
-  
-  table th, table td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: center;
-  }
-  
-  table th {
-    background-color: #007bff;
-    color: white;
-  }
-  
-  button.edit, button.delete {
-    padding: 5px 10px;
-    border: none;
-    border-radius: 3px;
-    cursor: pointer;
-  }
-  
-  button.edit {
-    background-color: #ffc107;
-    color: black;
-  }
-  
-  button.edit:hover {
-    background-color: #e0a800;
-  }
-  
-  button.delete {
-    background-color: #dc3545;
-    color: white;
-  }
-  
-  button.delete:hover {
-    background-color: #c82333;
-  }
-  .filters {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 20px;
-  }
-  
-  .filters button {
-    padding: 10px 15px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.2s;
-  }
-  
-  .filters button:hover {
-    background-color: #0056b3;
-  }
+  font-family: 'Roboto', sans-serif;
+  background-color: #f7f6f9;
+  color: #333;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-  .total-general {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 20px;
-  }
-  .total-general div strong {
-    margin-right: 5px;
+/* Contenedor principal */
+.crud-container {
+  max-width: 900px;
+  margin: 30px auto;
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  text-align: center;
+  color: #6c63ff;
+  margin-bottom: 20px;
+  font-size: 2em;
+}
+
+/* Totales generales */
+.total-general {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.total-general div {
+  flex: 1;
+  margin: 5px;
+  padding: 10px;
+  background-color: #f0f4ff;
+  text-align: center;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.total-general div strong {
+  color: #4a47a3;
+  font-size: 1.1em;
+}
+
+/* Botones de filtro */
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 20px;
+  gap: 10px;
+}
+
+.filters button {
+  flex: 1;
+  max-width: 120px;
+  padding: 10px;
+  border: none;
+  background-color: #e2e6ff;
+  color: #4a47a3;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1em;
+  transition: background-color 0.3s ease;
+}
+
+.filters button:hover {
+  background-color: #c5caff;
+}
+
+/* Formulario */
+form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+form div {
+  display: flex;
+  flex-direction: column;
+}
+
+form label {
+  margin-bottom: 5px;
+  color: #4a47a3;
+}
+
+form input,
+form select {
+  padding: 10px;
+  border: 1px solid #d6d6d6;
+  border-radius: 8px;
+  background-color: #ffffff;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+form button {
+  grid-column: span 2;
+  padding: 10px 20px;
+  background-color: #6c63ff;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1em;
+  transition: background-color 0.3s ease;
+}
+
+form button:hover {
+  background-color: #5548c2;
+}
+
+/* Tabla */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+
+.table-responsive {
+  overflow-x: auto;
+  margin-top: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+thead {
+  background-color: #6c63ff;
+  color: white;
+}
+
+th, td {
+  padding: 10px;
+  text-align: center;
+  border: 1px solid #ececec;
+}
+
+tbody tr:nth-child(odd) {
+  background-color: #fafafa;
+}
+
+tbody tr:hover {
+  background-color: #f0f4ff;
+}
+
+tfoot td {
+  font-weight: bold;
+}
+
+/* Botones de acción */
+button.edit,
+button.delete {
+  border: none;
+  border-radius: 50%;
+  padding: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button.edit {
+  background-color: #ffdd57;
+  color: #fff;
+}
+
+button.edit:hover {
+  background-color: #ffcc00;
+}
+
+button.delete {
+  background-color: #ff6b6b;
+  color: #fff;
+}
+
+button.delete:hover {
+  background-color: #e63939;
+}
+
+/* Adaptabilidad móvil */
+@media (max-width: 600px) {
+  h1 {
+    font-size: 1.5em;
   }
 
   .total-general div {
-    display: flex;
-    text-align: center;
-    justify-content: center;
-    align-items: center;
+    flex: 1 1 100%;
   }
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-    overflow-x: auto;
-    display: block;
+
+  form {
+    grid-template-columns: 1fr;
   }
-  
-  th, td {
-    text-align: center;
-    padding: 10px;
-    font-size: 14px;
+
+  form button {
+    grid-column: span 1;
   }
-  form button#limpiar-formulario {
-    background-color: #6c757d;
-    color: white;
+
+  .table-responsive {
     border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    padding: 10px;
-    margin-left: 10px; /* Espaciado entre botones */
+    box-shadow: none;
   }
-  
-  form button#limpiar-formulario:hover {
-    background-color: #5a6268;
+
+  th, td {
+    font-size: 12px;
+    padding: 8px;
   }
-  
-  @media (max-width: 600px) {
-    table {
-      font-size: 12px;
-    }
-    .filters {
-      display: block;
-      width: 100%;
-    }
+
+  table {
+    display: block; /* Hacer que la tabla sea desplazable */
+    overflow-x: auto;
+    white-space: nowrap; /* Evitar que las celdas se ajusten al ancho del contenedor */
   }
-    
+}

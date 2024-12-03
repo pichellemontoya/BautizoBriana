@@ -1,6 +1,5 @@
 const API_URL = 'https://ivoetjclejmrvnbrqryg.supabase.co/rest/v1/Invitados';
 const API_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Iml2b2V0amNsZWptcnZuYnJxcnlnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzI1NDE4NDQsImV4cCI6MjA0ODExNzg0NH0.6u9I8ssWkbFveR5RFjv-MeIFVOOz9S6KgHEFmtLOpec'; // Reemplaza con tu clave
-const CLIENT_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Iml2b2V0amNsZWptcnZuYnJxcnlnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzI1NDE4NDQsImV4cCI6MjA0ODExNzg0NH0.6u9I8ssWkbFveR5RFjv-MeIFVOOz9S6KgHEFmtLOpec'; // Reemplaza con tu clave
 
 const headers = {
   apikey: API_KEY,
@@ -13,6 +12,19 @@ document.addEventListener('DOMContentLoaded', () => {
   const tbody = document.getElementById('invitados-tbody');
   const filterButtons = document.querySelectorAll('.filters button');
 
+  // Mostrar/Ocultar campos adicionales al editar
+  const toggleModificarCampos = (isEditing) => {
+    const modificarCampos = document.getElementById('modificar-campos');
+    if (isEditing) {
+      modificarCampos.style.display = 'block';
+    } else {
+      modificarCampos.style.display = 'none';
+      document.getElementById('adultosConfirmados').value = '';
+      document.getElementById('niniosConfirmados').value = '';
+      document.getElementById('bAsiste').value = 'false';
+    }
+  };
+
   const calcularTotales = () => {
     const filas = document.querySelectorAll('#invitados-tbody tr');
     let totalAdultos = 0;
@@ -21,15 +33,15 @@ document.addEventListener('DOMContentLoaded', () => {
     let totalNiniosConfirmados = 0;
     let totalConfirmados = 0;
     let totalRespondieron = 0;
-    
-    filas.forEach(fila => {
-      const adultos = parseInt(fila.children[2].textContent, 10) || 0;
-      const adultosConfirmados = parseInt(fila.children[3].textContent, 10) || 0;
-      const ninios = parseInt(fila.children[4].textContent, 10) || 0;
-      const niniosConfirmados = parseInt(fila.children[5].textContent, 10) || 0;
-      const confirmados = fila.children[7].textContent == 'Sí' ? 1 : 0;
-      const respondieron = fila.children[6].textContent == 'Sí' ? 1 : 0;
-  
+
+    filas.forEach((fila) => {
+      const adultos = parseInt(fila.children[2]?.textContent || '0', 10);
+      const adultosConfirmados = parseInt(fila.children[3]?.textContent || '0', 10);
+      const ninios = parseInt(fila.children[4]?.textContent || '0', 10);
+      const niniosConfirmados = parseInt(fila.children[5]?.textContent || '0', 10);
+      const confirmados = fila.children[7]?.textContent === 'Sí' ? 1 : 0;
+      const respondieron = fila.children[6]?.textContent === 'Sí' ? 1 : 0;
+
       totalAdultos += adultos;
       totalAdultosConfirmados += adultosConfirmados;
       totalNinios += ninios;
@@ -37,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
       totalConfirmados += confirmados;
       totalRespondieron += respondieron;
     });
-  
+
     document.getElementById('total-adultos').textContent = totalAdultos;
     document.getElementById('total-adultos-confirmados').textContent = totalAdultosConfirmados;
     document.getElementById('total-ninios').textContent = totalNinios;
@@ -47,7 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   const calcularTotalesGenerales = async () => {
-    let query = `${API_URL}?select=*`;
+    const query = `${API_URL}?select=*`;
     const response = await fetch(query, { headers });
     const data = await response.json();
 
@@ -56,27 +68,26 @@ document.addEventListener('DOMContentLoaded', () => {
     let totalConfirmados = 0;
     let totalRespondieron = 0;
 
-    data.map(invitado => {
-        const adultosConfirmados = parseInt(invitado.AdultosConfirmados) || 0;
-        const niniosConfirmados = parseInt(invitado.NiniosConfirmados) || 0;
-        const confirmados = invitado.bAsiste ? 1 : 0;
-        const respondieron = invitado.bResponde ? 1 : 0;
-        totalAdultosConfirmados += adultosConfirmados;
-        totalNiniosConfirmados += niniosConfirmados;
-        totalConfirmados += confirmados;
-        totalRespondieron += respondieron;
+    data.forEach((invitado) => {
+      const adultosConfirmados = parseInt(invitado.AdultosConfirmados || '0', 10);
+      const niniosConfirmados = parseInt(invitado.NiniosConfirmados || '0', 10);
+      const confirmados = invitado.bAsiste ? 1 : 0;
+      const respondieron = invitado.bResponde ? 1 : 0;
+      totalAdultosConfirmados += adultosConfirmados;
+      totalNiniosConfirmados += niniosConfirmados;
+      totalConfirmados += confirmados;
+      totalRespondieron += respondieron;
     });
-    document.getElementById('total-general-adultos-confirmados').innerHTML = totalAdultosConfirmados;
-    document.getElementById('total-general-ninios-confirmados').innerHTML = totalNiniosConfirmados;
-    document.getElementById('total-general-confirmados').innerHTML = totalConfirmados;
-    document.getElementById('total-general-respondieron').innerHTML = totalRespondieron;
+
+    document.getElementById('total-general-adultos-confirmados').textContent = totalAdultosConfirmados;
+    document.getElementById('total-general-ninios-confirmados').textContent = totalNiniosConfirmados;
+    document.getElementById('total-general-confirmados').textContent = totalConfirmados;
+    document.getElementById('total-general-respondieron').textContent = totalRespondieron;
   };
-  
 
   const fetchInvitados = async (filter = 'all') => {
     let query = `${API_URL}?select=*&order=Familia.asc`;
 
-    // Aplicar filtro según el caso
     if (filter === 'responded') query += '&bResponde=eq.true';
     if (filter === 'not-responded') query += '&bResponde=eq.false';
     if (filter === 'attending') query += '&bResponde=eq.true&bAsiste=eq.true';
@@ -85,9 +96,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const response = await fetch(query, { headers });
     const data = await response.json();
 
-    tbody.innerHTML = data.map(invitado => `
+    tbody.innerHTML = data
+      .map((invitado) => `
       <tr>
-        <td style="visibility:collapse; display:none;">${invitado.InvitadoID}</td>
+        <td style="display:none;">${invitado.InvitadoID}</td>
         <td>${invitado.Familia}</td>
         <td>${invitado.Adultos}</td>
         <td>${invitado.AdultosConfirmados}</td>
@@ -96,19 +108,28 @@ document.addEventListener('DOMContentLoaded', () => {
         <td>${invitado.bResponde ? 'Sí' : 'No'}</td>
         <td>${invitado.bAsiste ? 'Sí' : 'No'}</td>
         <td>
-          <button class="edit" data-id="${invitado.InvitadoID}">Editar</button>
-          <button class="delete" data-id="${invitado.InvitadoID}">Eliminar</button>
+          <button class="edit" data-id="${invitado.InvitadoID}" title="Editar">
+            <i class="fas fa-edit"></i>
+          </button>
+          <button class="delete" data-id="${invitado.InvitadoID}" title="Eliminar">
+            <i class="fas fa-trash-alt"></i>
+          </button>
         </td>
       </tr>
-    `).join('');
+    `)
+      .join('');
     calcularTotalesGenerales();
     calcularTotales();
   };
 
-
   const saveInvitado = async (invitado) => {
     const method = invitado.InvitadoID ? 'PATCH' : 'POST';
     const url = invitado.InvitadoID ? `${API_URL}?InvitadoID=eq.${invitado.InvitadoID}` : API_URL;
+
+    invitado.bResponde = form.id.value ? document.getElementById('bResponde').value === 'true' : false;
+    invitado.bAsiste = document.getElementById('bAsiste').value === 'true';
+    invitado.AdultosConfirmados = Number(document.getElementById('adultosConfirmados').value) || 0;
+    invitado.NiniosConfirmados = Number(document.getElementById('niniosConfirmados').value) || 0;
 
     await fetch(url, {
       method,
@@ -117,6 +138,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     fetchInvitados();
     form.reset();
+    toggleModificarCampos(false);
   };
 
   const deleteInvitado = async (id) => {
@@ -127,7 +149,6 @@ document.addEventListener('DOMContentLoaded', () => {
     fetchInvitados();
   };
 
-  // Manejar envío del formulario
   form.addEventListener('submit', (e) => {
     e.preventDefault();
 
@@ -136,56 +157,62 @@ document.addEventListener('DOMContentLoaded', () => {
       Familia: form.familia.value,
       Adultos: Number(form.adultos.value),
       Ninios: Number(form.ninios.value),
-      AdultosConfirmados: Number(form.adultosConfirmados.value),
-      NiniosConfirmados: Number(form.niniosConfirmados.value),
-      bAsiste: false,
-      bResponde: false,
     };
 
     saveInvitado(invitado);
-    calcularTotalesGenerales();
-    calcularTotales();
   });
 
-  // Manejar edición y eliminación
   tbody.addEventListener('click', (e) => {
-    if (e.target.classList.contains('edit')) {
-      const row = e.target.closest('tr');
+    const button = e.target.closest('button');
+    if (!button) return;
+  
+    if (button.classList.contains('edit')) {
+      const row = button.closest('tr');
       form.id.value = row.children[0].textContent;
       form.familia.value = row.children[1].textContent;
-      form.adultos.value = row.children[2].textContent;
-      form.adultosConfirmados.value = row.children[3].textContent;
-      form.ninios.value = row.children[4].textContent;
-      form.niniosConfirmados.value = row.children[5].textContent;
-    } else if (e.target.classList.contains('delete')) {
-      const id = e.target.dataset.id;
+      form.adultos.value = row.children[2]?.textContent || 0;
+      form.ninios.value = row.children[4]?.textContent || 0;
+      document.getElementById('adultosConfirmados').value = row.children[3]?.textContent || 0;
+      document.getElementById('niniosConfirmados').value = row.children[5]?.textContent || 0;
+      document.getElementById('bAsiste').value = row.children[7]?.textContent === 'Sí' ? 'true' : 'false';
+      document.getElementById('bResponde').value = row.children[6]?.textContent === 'Sí' ? 'true' : 'false';
+      toggleModificarCampos(true);
+  
+      // Desplazarse suavemente hacia el formulario
+      form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    } else if (button.classList.contains('delete')) {
+      const id = button.dataset.id;
       if (confirm('¿Seguro que deseas eliminar este invitado?')) {
         deleteInvitado(id);
       }
     }
-    calcularTotalesGenerales();
-    calcularTotales();
   });
 
-  // Manejar filtros
-  filterButtons.forEach(button => {
+  filterButtons.forEach((button) => {
     button.addEventListener('click', () => {
       const filter = button.dataset.filter;
       fetchInvitados(filter);
     });
   });
 
-  document.getElementById('exportar-excel').addEventListener('click', function() {
-    const table = document.querySelector('table');
-    const wb = XLSX.utils.table_to_book(table, { sheet: "Invitados" });
+  document.getElementById('exportar-excel').addEventListener('click', () => {
+    const originalTable = document.querySelector('table');
+    const tempTable = originalTable.cloneNode(true);
+
+    tempTable.querySelectorAll('thead tr th:first-child').forEach(th => th.remove());
+    tempTable.querySelectorAll('thead tr th:last-child').forEach(th => th.remove());
+    tempTable.querySelectorAll('tbody tr').forEach(row => row.removeChild(row.firstElementChild));
+    tempTable.querySelectorAll('tbody tr').forEach(row => row.removeChild(row.lastElementChild));
+
+    // Generar el archivo Excel con la tabla modificada
+    const wb = XLSX.utils.table_to_book(tempTable, { sheet: 'Invitados' });
     XLSX.writeFile(wb, 'invitados.xlsx');
   });
-  
+
   document.getElementById('limpiar-formulario').addEventListener('click', () => {
-    const form = document.getElementById('invitado-form');
-    form.reset(); // Limpia todos los campos del formulario
+    form.reset();
+    toggleModificarCampos(false);
   });
-  
-  // Cargar todos los invitados al inicio
+
   fetchInvitados();
 });

@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CRUD Invitados</title>
   <link rel="stylesheet" href="crud-styles.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
   <div class="crud-container">
@@ -37,47 +39,62 @@
         <label for="ninios">Niños/Bebés:</label>
         <input type="number" id="ninios" name="ninios" min="0" required>
       </div>
-      <div>
-        <label for="adultosConfirmados">Adultos Confirmados:</label>
-        <input type="number" id="adultosConfirmados" name="adultosConfirmados" min="0" required>
+      <div id="modificar-campos" style="display: none;">
+        <div>
+          <label for="bAsiste">¿Asistirá?</label>
+          <select id="bAsiste" name="bAsiste">
+            <option value="true">Sí</option>
+            <option value="false">No</option>
+          </select>
+        </div>
+        <div>
+          <label for="adultosConfirmados">Adultos Confirmados:</label>
+          <input type="number" id="adultosConfirmados" name="adultosConfirmados" min="0">
+        </div>
+        <div>
+          <label for="niniosConfirmados">Niños/Bebés Confirmados:</label>
+          <input type="number" id="niniosConfirmados" name="niniosConfirmados" min="0">
+        </div>
       </div>
-      <div>
-        <label for="niniosConfirmados">Niños/Bebés Confirmados:</label>
-        <input type="number" id="niniosConfirmados" name="niniosConfirmados" min="0" required>
-      </div>
+      
+      <!-- Campo oculto para bResponde -->
+      <input type="hidden" id="bResponde" name="bResponde" value="false">
+      <br>
       <button type="submit">Guardar</button>
       <button type="reset" id="limpiar-formulario">Limpiar</button>
     </form>
-    <table>
-      <thead>
-        <tr>
-          <th style="visibility:collapse; display:none;">ID</th>
-          <th>Familia</th>
-          <th>Adultos Invitados</th>
-          <th>Adultos Confirmados</th>
-          <th>Niños/Bebes Invitados</th>
-          <th>Niños/Bebés Confirmados</th>
-          <th>Respondió</th>
-          <th>Asistirá</th>
-          <th>Acciones</th>
-        </tr>
-      </thead>
-      <tbody id="invitados-tbody">
-        <!-- Los datos se llenan dinámicamente -->
-      </tbody>
-      <tfoot>
-        <tr>
-          <td colspan="1"><strong>Total:</strong></td>
-          <td id="total-adultos">0</td>
-          <td id="total-adultos-confirmados">0</td>
-          <td id="total-ninios">0</td>
-          <td id="total-ninios-confirmados">0</td>
-          <td id="total-respondieron">0</td>
-          <td id="total-confirmados">0</td>
-          <td colspan="1"></td>
-        </tr>
-      </tfoot>
-    </table>
+    <div class="table-responsive"></div>
+      <table>
+        <thead>
+          <tr>
+            <th style="visibility:collapse; display:none;">ID</th>
+            <th>Familia</th>
+            <th>Adultos Invitados</th>
+            <th>Adultos Confirmados</th>
+            <th>Niños/Bebes Invitados</th>
+            <th>Niños/Bebés Confirmados</th>
+            <th>Respondió</th>
+            <th>Asistirá</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody id="invitados-tbody">
+          <!-- Los datos se llenan dinámicamente -->
+        </tbody>
+        <tfoot>
+          <tr>
+            <td style="color: #6c63ff;" colspan="1"><strong>Total:</strong></td>
+            <td id="total-adultos">0</td>
+            <td id="total-adultos-confirmados">0</td>
+            <td id="total-ninios">0</td>
+            <td id="total-ninios-confirmados">0</td>
+            <td id="total-respondieron">0</td>
+            <td id="total-confirmados">0</td>
+            <td colspan="1"></td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>  
   </div>  
   <script src="crud.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.4/xlsx.full.min.js"></script>
