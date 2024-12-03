@@ -5,6 +5,7 @@ const headers = {
   apikey: API_KEY,
   Authorization: `Bearer ${API_KEY}`,
   'Content-Type': 'application/json',
+  Prefer: 'return=minimal',
 };
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -123,23 +124,44 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   const saveInvitado = async (invitado) => {
-    const method = invitado.InvitadoID ? 'PATCH' : 'POST';
-    const url = invitado.InvitadoID ? `${API_URL}?InvitadoID=eq.${invitado.InvitadoID}` : API_URL;
-
-    invitado.bResponde = form.id.value ? document.getElementById('bResponde').value === 'true' : false;
+    const isEditing = !!invitado.InvitadoID;
+    const method = isEditing ? 'PATCH' : 'POST';
+    const url = isEditing ? `${API_URL}?InvitadoID=eq.${invitado.InvitadoID}` : API_URL;
+    
     invitado.bAsiste = document.getElementById('bAsiste').value === 'true';
+    // Elimina la propiedad InvitadoID si es un registro nuevo
+    if (!isEditing) {
+      invitado.InvitadoID = 0
+      invitado.bAsiste = false;
+    }
+  
+    invitado.bResponde = form.id.value ? document.getElementById('bResponde').value === 'true' : false;
     invitado.AdultosConfirmados = Number(document.getElementById('adultosConfirmados').value) || 0;
     invitado.NiniosConfirmados = Number(document.getElementById('niniosConfirmados').value) || 0;
-
-    await fetch(url, {
-      method,
-      headers,
-      body: JSON.stringify(invitado),
-    });
-    fetchInvitados();
-    form.reset();
-    toggleModificarCampos(false);
+  
+    try {
+      const response = await fetch(url, {
+        method,
+        headers,
+        body: JSON.stringify(invitado),
+      });
+  
+      if (!response.ok) {
+        const errorData = await response.json();
+        console.error('Error al guardar el invitado:', errorData);
+        alert('No se pudo guardar el invitado. Revisa los datos e inténtalo de nuevo.');
+        return;
+      }
+  
+      fetchInvitados();
+      form.reset();
+      toggleModificarCampos(false);
+    } catch (error) {
+      console.error('Error en la solicitud:', error);
+      alert('Hubo un problema al guardar el invitado.');
+    }
   };
+  
 
   const deleteInvitado = async (id) => {
     await fetch(`${API_URL}?InvitadoID=eq.${id}`, {
@@ -151,14 +173,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
   form.addEventListener('submit', (e) => {
     e.preventDefault();
-
+  
     const invitado = {
-      InvitadoID: form.id.value || null,
       Familia: form.familia.value,
       Adultos: Number(form.adultos.value),
       Ninios: Number(form.ninios.value),
     };
-
+  
+    if (form.id.value) {
+      invitado.InvitadoID = form.id.value; // Solo incluir si es edición
+    }
+  
     saveInvitado(invitado);
   });
 
