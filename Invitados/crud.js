@@ -131,7 +131,6 @@ document.addEventListener('DOMContentLoaded', () => {
     invitado.bAsiste = document.getElementById('bAsiste').value === 'true';
     // Elimina la propiedad InvitadoID si es un registro nuevo
     if (!isEditing) {
-      invitado.InvitadoID = 0
       invitado.bAsiste = false;
     }
   
